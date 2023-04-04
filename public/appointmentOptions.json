@@ -90,7 +90,10 @@
     {
         "_id": 5,
         "name": "Pediatric Dental",
-        "slots": []
+        "slots": [
+            "08.00 AM - 08.30 AM",
+            "08.30 AM - 09.00 AM"
+        ]
     },
     {
         "_id": 6,
