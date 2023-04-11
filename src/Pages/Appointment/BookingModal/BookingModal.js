@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
 import React from 'react';
+import { format } from 'date-fns';
 
 const BookingModal = ({ treatment, setTreatment, selectedDate }) => {
     const { name, slots } = treatment; // treatment is appointment option just different name.
