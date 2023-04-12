@@ -44,7 +44,6 @@ const SignUp = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log('save User', data);
                 navigate('/');
             })
     }
