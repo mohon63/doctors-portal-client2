@@ -3,9 +3,24 @@ import React, { useState } from 'react';
 import AppointmentOption from './AppointmentOption';
 import BookingModal from '../BookingModal/BookingModal';
 import { useQuery } from 'react-query';
+import Loading from '../../Shared/Loading/Loading';
 
 const AvailableAppointments = ({ selectedDate }) => {
     const [treatment, setTreatment] = useState([null]);
+    const date = format(selectedDate, 'PP')
+
+
+    const { data: appointmentOptions = [], refetch, isLoading } = useQuery({
+        queryKey: ['appointmentOptions', date],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/appointmentOptions?date=${date}`);
+            const data = await res.json();
+            return data
+        }
+    })
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     // const { data: appointmentOptions = [] } = useQuery({
     //     queryKey: ['appointmentOptions'],
@@ -13,14 +28,7 @@ const AvailableAppointments = ({ selectedDate }) => {
     //         .then(res => res.json())
     // })
 
-    const { data: appointmentOptions = [] } = useQuery({
-        queryKey: ['appointmentOptions'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/appointmentOptions');
-            const data = await res.json();
-            return data
-        }
-    })
+
 
     return (
         <section className='my-16'>
@@ -41,6 +49,7 @@ const AvailableAppointments = ({ selectedDate }) => {
                     selectedDate={selectedDate}
                     treatment={treatment}
                     setTreatment={setTreatment}
+                    refetch={refetch}
                 ></BookingModal>
             }
         </section>
